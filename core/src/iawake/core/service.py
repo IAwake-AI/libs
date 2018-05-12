@@ -2,22 +2,22 @@ from iawake.core.processor import NoDataAvailable
 
 
 class Service(object):
-    feed_cls = NotImplemented
-    processor_chain_classes = NotImplemented
+    feed = NotImplemented
+    processor_chain = NotImplemented
 
     @classmethod
-    def get_feed(cls):
-        if cls.feed_cls is NotImplemented:
+    def _get_feed(cls):
+        if cls.feed is NotImplemented:
             raise NotImplementedError
-        return cls.feed_cls()
+        return cls.feed()
 
     @classmethod
-    def get_processor_chain(cls):
-        if cls.processor_chain_classes is NotImplemented:
+    def _get_processor_chain(cls):
+        if cls.processor_chain is NotImplemented:
             raise NotImplementedError
         return [
-            processor_cls()
-            for processor_cls in cls.processor_chain_classes
+            processor()
+            for processor in cls.processor_chain
         ]
 
     @classmethod
@@ -28,8 +28,8 @@ class Service(object):
 class SerialService(Service):
     @classmethod
     def run(cls, skip_empty=False):
-        feed = cls.get_feed()
-        processor_chain = cls.get_processor_chain()
+        feed = cls._get_feed()
+        processor_chain = cls._get_processor_chain()
         while True:
             data = feed()
             for processor in processor_chain:

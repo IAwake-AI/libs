@@ -1,10 +1,10 @@
 import os
 
 import cv2
-import numpy as np
-import tensorflow as tf
 from keras.models import model_from_json
 from keras.preprocessing import image
+import numpy as np
+import tensorflow as tf
 
 from iawake.core.processor import (
     NoDataAvailable,
