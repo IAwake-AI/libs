@@ -9,7 +9,7 @@ setup(
     packages=find_packages('src'),
     package_dir={'': 'src'},
     dependency_links=[
-        'git+ssh://git@github.com/Automa-Cognoscenti/libs.git#egg=iawake.core-0.0.0#subdirectory=core',
+        'git+https://github.com/Automa-Cognoscenti/libs.git#egg=iawake.core-0.0.0#subdirectory=core',
     ],
     install_requires=[
         'beautifulsoup4==4.6.0',
@@ -19,7 +19,6 @@ setup(
         'jinja2==2.10',
         'lxml==4.2.1',
         'rospkg==1.1.4',
-        'rospy==1.12.13',
     ],
     entry_points={
         'console_scripts': [
