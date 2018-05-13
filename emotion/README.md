@@ -7,6 +7,12 @@ and [service](https://github.com/Automa-Cognoscenti/libs/blob/master/emotion/src
 
 ## Installation
 ```bash
+mkdir SOFTWARE
+cd SOFTWARE
+sudo apt install python python-pip
+sudo apt install git 
+git clone https://github.com/Automa-Cognoscenti/libs.git 
+cd libs/emotion
 $ pip install --process-dependency-links -e .
 ```
 
@@ -26,6 +32,11 @@ $ cd libs/ros-utils && pip install --process-dependency-links -e .
 2) Install ROS
 
 Follow installation instructions [here](http://wiki.ros.org/kinetic/Installation/Ubuntu).
+
+Some additional tasks:
+```bash
+sudo apt install ros-kinetic-catkin
+```
 
 3) Create catkin workspace
 
