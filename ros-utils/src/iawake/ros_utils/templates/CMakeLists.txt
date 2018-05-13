@@ -7,8 +7,23 @@ find_package(catkin REQUIRED COMPONENTS
   sensor_msgs
   image_transport
   cv_bridge
+  message_generation
 )
 
-catkin_package()
+{% if msg_files|length > 0 %}
+add_message_files(
+  FILES
+  {{ msg_files }}
+)
+
+generate_messages(
+  DEPENDENCIES
+  std_msgs
+)
+{% endif %}
+
+catkin_package(
+  CATKIN_DEPENDS message_runtime
+)
 
 include_directories(${catkin_INCLUDE_DIRS})

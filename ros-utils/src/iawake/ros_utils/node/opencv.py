@@ -1,12 +1,9 @@
 from cv_bridge import CvBridge
-from sensor_msgs.msg import Image
 
-from iawake.ros_utils.processor_node.base import ProcessorNode
+from iawake.ros_utils.node.processor import ProcessorNode
 
 
 class OpenCVFeedProcessorNode(ProcessorNode):
-    subscribing_msg = Image
-
     def __init__(self, *args, **kwargs):
         super(OpenCVFeedProcessorNode, self).__init__(*args, **kwargs)
         self._bridge = CvBridge()
