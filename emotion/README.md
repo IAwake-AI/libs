@@ -7,10 +7,8 @@ and [service](https://github.com/Automa-Cognoscenti/libs/blob/master/emotion/src
 
 ## Installation
 ```bash
-mkdir SOFTWARE
-cd SOFTWARE
 sudo apt install python python-pip
-sudo apt install git 
+sudo apt install git
 git clone https://github.com/Automa-Cognoscenti/libs.git 
 cd libs/emotion
 $ pip install --process-dependency-links -e .
