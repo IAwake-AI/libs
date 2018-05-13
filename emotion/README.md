@@ -33,11 +33,6 @@ $ cd libs/ros-utils && pip install --process-dependency-links -e .
 
 Follow installation instructions [here](http://wiki.ros.org/kinetic/Installation/Ubuntu).
 
-Some additional tasks:
-```bash
-sudo apt install ros-kinetic-catkin
-```
-
 3) Create catkin workspace
 
 ```bash
