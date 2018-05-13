@@ -1,4 +1,5 @@
 from iawake.core.processor import NoDataAvailable
+from iawake.core.types import ReturnType
 
 
 class Service(object):
@@ -25,17 +26,26 @@ class Service(object):
         raise NotImplementedError
 
 
+def _validate_response(response, expected_return_type):
+    assert isinstance(response, expected_return_type)
+    if isinstance(expected_return_type, ReturnType):
+        response.validate()
+
+
 class SerialService(Service):
     @classmethod
-    def run(cls, skip_empty=False):
+    def run(cls, skip_empty=False, strict_return_type=False):
         feed = cls._get_feed()
         processor_chain = cls._get_processor_chain()
         while True:
             data = feed()
+            if strict_return_type:
+                _validate_response(data, feed.return_type)
             for processor in processor_chain:
                 try:
                     data = processor(data)
-                    assert isinstance(data, processor.return_type)
+                    if strict_return_type:
+                        _validate_response(data, processor.return_type)
                 except NoDataAvailable as e:
                     if not skip_empty:
                         raise e
