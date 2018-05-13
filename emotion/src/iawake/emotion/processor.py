@@ -13,6 +13,8 @@ from iawake.core.processor import (
 
 
 class EmotionProcessor(Processor):
+    return_type = str
+
     def __init__(self):
         models_directory = os.path.dirname(os.path.realpath(__file__)) + '/models'
         cascade_path = os.path.join(

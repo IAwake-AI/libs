@@ -3,6 +3,8 @@ class NoDataAvailable(Exception):
 
 
 class Processor(object):
+    return_type = NotImplemented
+
     def process(self, data):
         raise NotImplementedError
 

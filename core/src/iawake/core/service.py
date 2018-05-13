@@ -35,6 +35,7 @@ class SerialService(Service):
             for processor in processor_chain:
                 try:
                     data = processor(data)
+                    assert isinstance(data, processor.return_type)
                 except NoDataAvailable as e:
                     if not skip_empty:
                         raise e

@@ -1,8 +1,18 @@
 import rospy
-from std_msgs.msg import String
+from std_msgs.msg import (
+    Int32,
+    String,
+)
 
 from iawake.core.processor import NoDataAvailable
 from iawake.core.utils import load_module_member
+
+
+def _get_ros_msg_from_return_type(return_type):
+    return {
+        int: Int32,
+        str: String,
+    }[return_type]
 
 
 class ProcessorNode(object):
@@ -17,9 +27,10 @@ class ProcessorNode(object):
     ):
         processor_cls = load_module_member(processor_path)
         self._processor = processor_cls()
+        ros_msg = _get_ros_msg_from_return_type(self._processor.return_type)
         self._publisher = rospy.Publisher(
             publishing_topic,
-            String,
+            ros_msg,
             queue_size=10,
         )
         rospy.init_node(node_name)
