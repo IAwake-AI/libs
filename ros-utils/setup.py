@@ -15,6 +15,7 @@ setup(
         'beautifulsoup4==4.6.0',
         'catkin_pkg==0.4.2',
         'click==6.7',
+        'empy==3.3.2',
         'iawake.core[opencv-python]==0.0.0',
         'jinja2==2.10',
         'lxml==4.2.1',
