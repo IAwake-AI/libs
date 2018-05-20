@@ -11,6 +11,8 @@ from iawake.core.types import ReturnType
 from iawake.core.utils import load_module_member
 from iawake.ros_utils.utils import convert_camel_case_to_snake_case
 
+from trajectory_msgs.msg import JointTrajectory
+
 
 @click.command()
 @click.argument('service_class')
@@ -73,6 +75,7 @@ def _generate_ros_files_for_serial_service(
             return {
                 int: 'std_msgs.msg.Int32',
                 str: 'std_msgs.msg.String',
+		JointTrajectory: 'trajectory_msgs.msg.JointTrajectory',
             }[return_type]
 
     node_files = {}
