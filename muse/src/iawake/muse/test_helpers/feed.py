@@ -1,23 +1,18 @@
 import os
 
+from iawake.core.feed import FileFeed
 from iawake.muse.feed import MuseFeed
 from iawake.muse.types import MuseReturnType
 
 
-class MuseFileFeed(MuseFeed):
-    def __init__(self):
+class MuseFileFeed(FileFeed, MuseFeed):
+    @property
+    def _file_path(self):
         data_dir = os.path.join(os.path.dirname(__file__), 'data')
-        self._file = open("{}/test_data.txt".format(data_dir))
+        return "{}/test_data.txt".format(data_dir)
 
-    def _get_next_line(self):
-        line = self._file.readline()
-        if line == '':
-            self._file.seek(0)
-            line = self._file.readline()
-        return line.rstrip()
-
-    def get_data(self):
-        line = self._get_next_line()
+    @classmethod
+    def _process_line(cls, line):
         values = line.split(',')
         response = MuseReturnType({
             'TP9': values[0],

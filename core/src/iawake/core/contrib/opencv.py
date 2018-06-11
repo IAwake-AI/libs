@@ -1,6 +1,9 @@
 import cv2
 
-from iawake.core.feed import Feed
+from iawake.core.feed import (
+    DirectoryFeed,
+    Feed,
+)
 
 
 class OpenCVCameraFeed(Feed):
@@ -12,3 +15,9 @@ class OpenCVCameraFeed(Feed):
     def get_data(self):
         ret, img = self._capture.read()
         return img
+
+
+class OpenCVStaticVideoFeed(DirectoryFeed):
+    @classmethod
+    def _process_file(cls, path):
+        return cv2.imread(path)

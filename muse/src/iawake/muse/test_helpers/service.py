@@ -7,6 +7,5 @@ class MuseFileService(MuseService):
 
 
 if __name__ == '__main__':
-    for result in MuseFileService.run():
-        print result
-        print 3
+    for result in MuseFileService.run(skip_empty=True):
+        print result.to_primitive()
