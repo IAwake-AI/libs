@@ -1,16 +1,22 @@
+from iawake.core.contrib.test_helpers \
+    import generate_debug_bounding_box_display_processor
+from iawake.people_detection.processor import PeopleToRectanglesProcessor
 from iawake.people_detection.service import PeopleDetectionService
 from iawake.people_detection.test_helpers.feed \
     import PeopleDetectionServiceStaticVideoFeed
-from iawake.people_detection.test_helpers.processor \
-    import DebugDisplayPeopleToRectanglesProcessor
 
 
 class StaticVideoFeedPeopleTrackingService(PeopleDetectionService):
     feed = PeopleDetectionServiceStaticVideoFeed
 
 
+DebugProcessor = generate_debug_bounding_box_display_processor(
+    PeopleToRectanglesProcessor
+)
+
+
 class DebugStaticVideoFeedPeopleTrackingService(StaticVideoFeedPeopleTrackingService):
-    processor_chain = [DebugDisplayPeopleToRectanglesProcessor]
+    processor_chain = [DebugProcessor]
 
 
 if __name__ == '__main__':
