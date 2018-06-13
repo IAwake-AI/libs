@@ -41,25 +41,19 @@ class SerialService(Service):
         self._processor_chain = self._get_processor_chain()
         self._feed_index = 0
 
-    def get_data(self, skip_empty=False, strict_return_type=False):
+    def get_data(self, strict_return_type=False):
         feed = self._feeds[self._feed_index]
-        data = feed()
         self._feed_index += 1
         if self._feed_index >= len(self._feeds):
             self._feed_index = 0
 
+        data = feed()
         if strict_return_type:
             _validate_response(data, feed.return_type)
         for processor in self._processor_chain:
-            try:
-                data = processor(data)
-                if strict_return_type:
-                    _validate_response(data, processor.return_type)
-            except NoDataAvailable as e:
-                if not skip_empty:
-                    raise e
-                else:
-                    break
+            data = processor(data)
+            if strict_return_type:
+                _validate_response(data, processor.return_type)
         else:
             return data
 
@@ -67,4 +61,10 @@ class SerialService(Service):
     def run(cls, skip_empty=False, strict_return_type=False):
         instance = cls()
         while True:
-            yield instance.get_data(skip_empty, strict_return_type)
+            try:
+                yield instance.get_data(strict_return_type)
+            except NoDataAvailable:
+                if not skip_empty:
+                    raise
+                else:
+                    continue

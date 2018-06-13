@@ -4,14 +4,13 @@ from iawake.face_detection.test_helpers.processor \
     import DebugDisplayFaceDetectionProcessor
 
 
-class DebugDisplayFaceDetectionService(FaceDetectionService):
-    processor_chain = [DebugDisplayFaceDetectionProcessor]
+class StaticVideoFaceDetectionService(FaceDetectionService):
+    feeds = [FaceDetectionStaticVideoFeed]
 
 
 class StaticVideoDebugDisplayFaceDetectionService(
-    DebugDisplayFaceDetectionService
+    StaticVideoFaceDetectionService
 ):
-    feeds = [FaceDetectionStaticVideoFeed]
     processor_chain = [DebugDisplayFaceDetectionProcessor]
 
 
