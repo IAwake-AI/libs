@@ -3,21 +3,17 @@ from __future__ import division
 import os
 
 import cv2
-import rospy
-from trajectory_msgs.msg import (
-    JointTrajectory,
-    JointTrajectoryPoint,
-)
 
 from iawake.core.processor import (
     NoDataAvailable,
     Processor,
 )
 from iawake.core.types import DetectedBox
+from iawake.core.types.types import List
 
 
 class FaceDetectionProcessor(Processor):
-    return_type = DetectedBox
+    return_type = List(DetectedBox)
 
     def __init__(self):
         models_directory = os.path.dirname(os.path.realpath(__file__))

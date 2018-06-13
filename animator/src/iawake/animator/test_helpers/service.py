@@ -10,5 +10,8 @@ class StaticPassthroughBrainAnimatorService(AnimatorService):
 
 
 if __name__ == '__main__':
-    for result in StaticPassthroughBrainAnimatorService.run(skip_empty=True):
+    for result in StaticPassthroughBrainAnimatorService.run(
+            skip_empty=True,
+            strict_return_type=True,
+    ):
         pass

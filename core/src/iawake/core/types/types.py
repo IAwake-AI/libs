@@ -6,7 +6,18 @@ from schematics.types import (
 
 
 class ReturnType(Model):
-    pass
+    @classmethod
+    def validate_response(cls, response):
+        if not isinstance(response, cls):
+            return False
+        response.validate()
+        return True
+
+
+class List(ReturnType):
+    def __init__(self, return_type):
+        super(List, self).__init__()
+        self.return_type = return_type
 
 
 class DetectedBox(ReturnType):

@@ -7,6 +7,10 @@ class Service(Feed):
     feeds = NotImplemented
     processor_chain = NotImplemented
 
+    @property
+    def return_type(self):
+        return self.processor_chain[-1].return_type
+
     @classmethod
     def _get_feeds(cls):
         if cls.feeds is NotImplemented:
@@ -29,12 +33,6 @@ class Service(Feed):
         raise NotImplementedError
 
 
-def _validate_response(response, expected_return_type):
-    assert isinstance(response, expected_return_type)
-    if isinstance(expected_return_type, ReturnType):
-        response.validate()
-
-
 class SerialService(Service):
     def __init__(self):
         self._feeds = self._get_feeds()
@@ -47,13 +45,13 @@ class SerialService(Service):
         if self._feed_index >= len(self._feeds):
             self._feed_index = 0
 
-        data = feed()
+        data = feed.get_data(strict_return_type=strict_return_type)
         if strict_return_type:
-            _validate_response(data, feed.return_type)
+            feed.validate_response(data)
         for processor in self._processor_chain:
             data = processor(data)
             if strict_return_type:
-                _validate_response(data, processor.return_type)
+                processor.validate_response(data)
         else:
             return data
 
