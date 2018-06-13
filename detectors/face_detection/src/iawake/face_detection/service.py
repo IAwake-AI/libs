@@ -4,7 +4,7 @@ from iawake.face_detection.processor import FaceDetectionProcessor
 
 
 class FaceDetectionService(SerialService):
-    feed = OpenCVCameraFeed
+    feeds = [OpenCVCameraFeed]
     processor_chain = [FaceDetectionProcessor]
 
 

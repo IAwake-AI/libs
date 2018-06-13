@@ -3,7 +3,7 @@ from iawake.muse.test_helpers.feed import MuseFileFeed
 
 
 class MuseFileService(MuseService):
-    feed = MuseFileFeed
+    feeds = [MuseFileFeed]
 
 
 if __name__ == '__main__':

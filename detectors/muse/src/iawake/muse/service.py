@@ -3,7 +3,7 @@ from iawake.muse.feed import MuseFeed
 
 
 class MuseService(SerialService):
-    feed = MuseFeed
+    feeds = [MuseFeed]
     processor_chain = []
 
 

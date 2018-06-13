@@ -4,7 +4,7 @@ from iawake.people_detection.processor import PeopleToRectanglesProcessor
 
 
 class PeopleDetectionService(SerialService):
-    feed = OpenCVCameraFeed
+    feeds = [OpenCVCameraFeed]
     processor_chain = [PeopleToRectanglesProcessor]
 
 

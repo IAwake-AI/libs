@@ -11,7 +11,7 @@ class DebugDisplayFaceDetectionService(FaceDetectionService):
 class StaticVideoDebugDisplayFaceDetectionService(
     DebugDisplayFaceDetectionService
 ):
-    feed = FaceDetectionStaticVideoFeed
+    feeds = [FaceDetectionStaticVideoFeed]
     processor_chain = [DebugDisplayFaceDetectionProcessor]
 
 

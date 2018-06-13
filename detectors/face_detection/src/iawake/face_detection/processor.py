@@ -48,37 +48,3 @@ class FaceDetectionProcessor(Processor):
                 'confidence': 1,
             }))
         return detections
-
-
-class RobotProcessor(Processor):
-    return_type = JointTrajectory
-
-    def process(self, data):
-        angle = 1.57 * (1 - data / 360)
-        trajectory = JointTrajectory()
-
-        trajectory.header.stamp = rospy.Time.now()
-        trajectory = {
-            'leg/left/hip/bend/forward': 0.0,
-            'leg/left/hip/bend/side': 0.0,
-            'leg/left/hip/twist': 0.0,
-            'leg/right/hip/bend/forward': 0.0,
-            'leg/right/hip/bend/side': 0.0,
-            'leg/right/hip/twist': 0.0,
-            'leg/left/knee': 0.0,
-            'leg/right/knee': 0.0,
-            'hand/left/shoulder/bend/forward': 0.0,
-            'hand/left/shoulder/bend/side': 0.0,
-            'hand/right/shoulder/bend/forward': 0.0,
-            'hand/right/shoulder/bend/side': 0.0,
-            'head/bend/forward': 0.0,
-            'head/bend/side': 0.0,
-            'head/twist': angle,
-        }
-        trajectory.joint_names = trajectory.keys()
-
-        point = JointTrajectoryPoint()
-        point.time_from_start = rospy.Duration(5)
-        point.positions = trajectory.values()
-        trajectory.points = [point]
-        return trajectory

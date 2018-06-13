@@ -5,7 +5,7 @@ from iawake.core.service import SerialService
 
 
 class EmotionService(SerialService):
-    feed = OpenCVCameraFeed
+    feeds = [OpenCVCameraFeed]
     processor_chain = [EmotionProcessor]
 
 

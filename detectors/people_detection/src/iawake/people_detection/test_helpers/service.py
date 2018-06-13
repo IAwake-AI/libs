@@ -7,7 +7,7 @@ from iawake.people_detection.test_helpers.feed \
 
 
 class StaticVideoFeedPeopleTrackingService(PeopleDetectionService):
-    feed = PeopleDetectionServiceStaticVideoFeed
+    feeds = [PeopleDetectionServiceStaticVideoFeed]
 
 
 DebugProcessor = generate_debug_bounding_box_display_processor(
