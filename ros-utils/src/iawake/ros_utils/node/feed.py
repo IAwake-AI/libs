@@ -12,5 +12,5 @@ class FeedNode(Node):
     def run(self):
         while not rospy.is_shutdown():
             data = self._feed.get_data()
-            self._publish(data)
+            self.publish(data)
             self._rate.sleep()

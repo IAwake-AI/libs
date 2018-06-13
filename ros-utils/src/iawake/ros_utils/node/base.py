@@ -17,7 +17,7 @@ class Node(object):
         )
         rospy.init_node(node_name)
 
-    def _publish(self, output):
+    def publish(self, output):
         if isinstance(output, ReturnType):
             return self._publisher.publish(*[value for _, value in output.items()])
         else:

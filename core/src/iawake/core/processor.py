@@ -4,6 +4,7 @@ class NoDataAvailable(Exception):
 
 class Processor(object):
     return_type = NotImplemented
+    publishing_topic = None
 
     def process(self, data):
         raise NotImplementedError

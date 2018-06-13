@@ -110,7 +110,10 @@ def _generate_ros_files_for_serial_service(
     processor_template = env.get_template('processor.py')
     for processor in service_class.processor_chain:
         node_name = convert_camel_case_to_snake_case(processor.__name__)
-        publishing_topic = "{}/{}".format(pkg_name, node_name)
+        publishing_topic = processor.publishing_topic
+        if publishing_topic is None:
+            publishing_topic = "{}/{}".format(pkg_name, node_name)
+
         file_name = "{}/{}.py".format(pkg_src_dir, node_name)
         publishing_msg_module = _get_or_setup_publishing_msg_module(
             processor.return_type,

@@ -9,4 +9,4 @@ class StaticPassthroughBrainService(PassthroughBrainService):
 
 if __name__ == '__main__':
     for result in StaticPassthroughBrainService.run(skip_empty=True):
-        print result
+        print result.to_primitive()

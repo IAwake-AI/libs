@@ -28,4 +28,4 @@ class ProcessorNode(Node):
         except NoDataAvailable:
             return
 
-        self._publish(output)
+        self.publish(output)

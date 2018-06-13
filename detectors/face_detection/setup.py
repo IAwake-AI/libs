@@ -16,4 +16,5 @@ setup(
         'numpy==1.14.3',
         'tensorflow==1.8.0',
     ],
+    package_data={'iawake.face_detection': ['test_helpers/data/*.yaml']},
 )

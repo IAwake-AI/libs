@@ -9,9 +9,9 @@ core_link = 'git+https://github.com/Automa-Cognoscenti/libs.git' \
 
 face_detection_link = 'git+https://github.com/Automa-Cognoscenti/libs.git' \
                       '#egg=iawake.face_detection-0.0.0' \
-                      '#subdirectory=detectors/face_detection',
+                      '#subdirectory=detectors/face_detection'
 setup(
-    name='iawake.animator',
+    name='iawake.face_tracking',
     version='0.0.0',
     packages=find_packages('src'),
     package_dir={'': 'src'},
