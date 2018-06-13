@@ -11,4 +11,4 @@ class StaticPassthroughBrainAnimatorService(AnimatorService):
 
 if __name__ == '__main__':
     for result in StaticPassthroughBrainAnimatorService.run(skip_empty=True):
-        print result
+        pass
