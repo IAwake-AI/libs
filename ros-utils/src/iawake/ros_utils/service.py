@@ -19,10 +19,12 @@ from trajectory_msgs.msg import JointTrajectory
 @click.argument('service_class')
 @click.argument('workspace_directory')
 @click.option('--pkg_name')
+@click.option('--external_usb_cam', is_flag=True)
 def generate_ros_files_for_serial_service(
         service_class,
         workspace_directory,
         pkg_name=None,
+        external_usb_cam=False,
 ):
     if pkg_name is None:
         pkg_name = 'iawake__generated'
@@ -52,6 +54,7 @@ def generate_ros_files_for_serial_service(
         pkg_name,
         custom_msgs,
         jinja_env,
+        external_usb_cam,
     )
 
     launch_dir = os.path.join(workspace_directory, 'src/launch')
@@ -104,6 +107,7 @@ def _generate_ros_files_for_serial_service(
         pkg_name,
         custom_msgs,
         jinja_env,
+        external_usb_cam,
 ):
     if type(service_class) in (str, unicode):
         service_class = load_module_member(service_class)
@@ -144,17 +148,18 @@ def _generate_ros_files_for_serial_service(
     assert len(service_class.feeds) == 1
     feed = service_class.feeds[0]
     if feed == OpenCVCameraFeed:
-        usb_cam_directory = os.path.join(workspace_directory, 'src/usb_cam')
-        if not os.path.exists(usb_cam_directory):
-            subprocess.check_call([
-                'git',
-                'clone',
-                'https://github.com/ros-drivers/usb_cam',
-                os.path.join(usb_cam_directory, 'usb_cam'),
-            ])
+        if not external_usb_cam:
+            usb_cam_directory = os.path.join(workspace_directory, 'src/usb_cam')
+            if not os.path.exists(usb_cam_directory):
+                subprocess.check_call([
+                    'git',
+                    'clone',
+                    'https://github.com/ros-drivers/usb_cam',
+                    os.path.join(usb_cam_directory, 'usb_cam'),
+                ])
 
-        feed_node = _generate_opencv_feed_node_xml(feed, launch_document)
-        launch_document_root.append(feed_node)
+            feed_node = _generate_opencv_feed_node_xml(feed, launch_document)
+            launch_document_root.append(feed_node)
 
         subscribing_topic = '/usb_cam/image_raw'
         subscribing_msg_module = 'sensor_msgs.msg.Image'
@@ -176,6 +181,7 @@ def _generate_ros_files_for_serial_service(
             pkg_name,
             custom_msgs,
             jinja_env,
+            external_usb_cam,
         )
     else:
         feed_template = jinja_env.get_template('feed.py')

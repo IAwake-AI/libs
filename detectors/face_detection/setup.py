@@ -13,8 +13,7 @@ setup(
     ],
     install_requires=[
         'iawake.core==0.0.0',
-        'numpy==1.14.3',
-        'tensorflow==1.8.0',
+        'opencv-python==3.4.0.12',
     ],
     package_data={'iawake.face_detection': ['test_helpers/data/*.yaml']},
 )
