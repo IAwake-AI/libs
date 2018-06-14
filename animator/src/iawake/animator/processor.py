@@ -1,9 +1,13 @@
 import rospy
-from iawake.core.processor import Processor
-from iawake.core.types.animations import HeadTilt
 from trajectory_msgs.msg import (
     JointTrajectory,
     JointTrajectoryPoint,
+)
+
+from iawake.core.processor import Processor
+from iawake.core.types.animations import (
+    get_animation_from_wrapper,
+    HeadTilt,
 )
 
 
@@ -51,7 +55,8 @@ class AnimatorProcessor(Processor):
         return trajectory
 
     def process(self, data):
+        animation = get_animation_from_wrapper(data)
         fn = {
             HeadTilt: self._process_head_tilt,
-        }[type(data)]
-        return fn(data)
+        }[type(animation)]
+        return fn(animation)

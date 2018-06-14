@@ -17,9 +17,19 @@ class Node(object):
         )
         rospy.init_node(node_name)
 
+    @staticmethod
+    def _generate_publishable_output(output):
+        return [value for _, value in output.items()]
+
     def publish(self, output):
-        if isinstance(output, ReturnType):
-            return self._publisher.publish(*[value for _, value in output.items()])
+        if isinstance(output, list):
+            return self._publisher.publish(
+                self._publisher.data_class(items=output)
+            )
+        elif isinstance(output, ReturnType):
+            return self._publisher.publish(
+                *self._generate_publishable_output(output)
+            )
         else:
             return self._publisher.publish(output)
 

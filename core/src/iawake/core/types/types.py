@@ -1,4 +1,4 @@
-from schematics import Model
+from schematics import Model, ModelMeta
 from schematics.types import (
     FloatType,
     IntType,
@@ -14,10 +14,14 @@ class ReturnType(Model):
         return True
 
 
+class ListMeta(ModelMeta):
+    def __call__(cls, return_type):
+        cls.return_type = return_type
+        return cls
+
+
 class List(ReturnType):
-    def __init__(self, return_type):
-        super(List, self).__init__()
-        self.return_type = return_type
+    __metaclass__ = ListMeta
 
 
 class DetectedBox(ReturnType):

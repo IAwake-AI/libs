@@ -10,6 +10,8 @@ def run_processor():
     subscribing_topic = '{{ subscribing_topic }}'
     subscribing_msg_module = '{{ subscribing_msg_module }}'
     subscribing_msg = load_module_member(subscribing_msg_module)
+    subscribing_msg_type_module = '{{ subscribing_msg_type }}'
+    subscribing_msg_type = load_module_member(subscribing_msg_type_module)
     processor_module = '{{ processor_module }}'
     processor_cls = load_module_member(processor_module)
     publishing_topic = '{{ publishing_topic }}'
@@ -18,6 +20,7 @@ def run_processor():
     processor = node_cls(
         subscribing_topic,
         subscribing_msg,
+        subscribing_msg_type,
         processor_cls,
         node_name,
         publishing_topic,

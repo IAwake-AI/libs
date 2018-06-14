@@ -21,7 +21,7 @@ def _validate_response_item(instance, return_type, item):
 
 def validate_service_element_response(instance, response):
     assert instance.return_type != NotImplemented, instance
-    if isinstance(instance.return_type, List):
+    if issubclass(instance.return_type, List):
         return_type = instance.return_type.return_type
         items = response
     else:

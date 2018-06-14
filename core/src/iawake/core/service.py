@@ -1,15 +1,21 @@
 from iawake.core.feed import Feed
 from iawake.core.processor import NoDataAvailable
-from iawake.core.types import ReturnType
 
 
-class Service(Feed):
+class ServiceMeta(type):
     feeds = NotImplemented
     processor_chain = NotImplemented
 
+    def get_return_type(cls):
+        return cls.processor_chain[-1].return_type
+
     @property
     def return_type(self):
-        return self.processor_chain[-1].return_type
+        return self.get_return_type()
+
+
+class Service(Feed):
+    __metaclass__ = ServiceMeta
 
     @classmethod
     def _get_feeds(cls):
@@ -25,6 +31,10 @@ class Service(Feed):
             processor()
             for processor in cls.processor_chain
         ]
+
+    @property
+    def return_type(self):
+        return type(self).get_return_type()
 
     def get_data(self):
         raise NotImplementedError
