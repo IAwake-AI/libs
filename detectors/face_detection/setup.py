@@ -15,5 +15,8 @@ setup(
         'iawake.core==0.0.0',
         'opencv-python==3.4.0.12',
     ],
-    package_data={'iawake.face_detection': ['test_helpers/data/*.yaml']},
+    package_data={'iawake.face_detection': [
+        'test_helpers/data/*.yaml',
+        'models/*',
+    ]},
 )

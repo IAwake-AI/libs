@@ -26,4 +26,5 @@ setup(
             'setup_ros_for_service = iawake.ros_utils.service:generate_ros_files_for_serial_service',
         ]
     },
+    package_data={'iawake.face_detection': ['templates/*']},
 )
